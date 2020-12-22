@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package toyBasket;
+
+message RpcMeta {
+    fixed64 id = 1;
+    string server = 2;
+    string method = 3;
+    int32 data_size = 4;
+}

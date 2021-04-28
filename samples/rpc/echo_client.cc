@@ -16,6 +16,10 @@ void echoDoneCallback(toyBasket::EchoResponse *response) {
   std::cout << "echo: " << response->DebugString() << std::endl;
 }
 
+void PrintDoneCallback(toyBasket::EchoResponse *response) {
+  std::cout << "Print: " << response->DebugString() << std::endl;
+}
+
 int main(int argc, char *argv[]) {
   if (argc < 3) {
     print_usage();
@@ -52,7 +56,7 @@ int main(int argc, char *argv[]) {
         std::cout << "[Print] echo client call!!!" << std::endl;
         stub.Print(
             NULL, &request, &response,
-            ::google::protobuf::NewCallback(&echoDoneCallback, &response));
+            ::google::protobuf::NewCallback(&PrintDoneCallback, &response));
       },
       true, false);
 

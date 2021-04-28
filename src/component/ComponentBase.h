@@ -18,33 +18,33 @@
 #include "BlockingQueue.h"
 #include "Types.h"
 
-namespace toyBasket {
+namespace toyBasket
+{
 
-class ComponentBase {
+class ComponentBase
+{
 protected:
-  ComponentBase();
+    ComponentBase();
 
 public:
-  virtual ~ComponentBase();
+    virtual ~ComponentBase();
 
 public:
-  virtual void init() = 0;
-  virtual void run() = 0;
-  virtual void stop() = 0;
-  virtual void uninit() = 0;
+    virtual void init()   = 0;
+    virtual void run()    = 0;
+    virtual void stop()   = 0;
+    virtual void uninit() = 0;
 
-  void addMsgToQueue(const std::string &msg);
-
-protected:
-  unsigned int getCrcCheck(char *buf, unsigned int len);
-  void printMessage(const std::string &msg,
-                    const LogLevel &loglevel = LOG_LEVEL_INFO);
-  void printMessage(const void *data, int len,
-                    const LogLevel &loglevel = LOG_LEVEL_INFO);
+    void addMsgToQueue(const std::string& msg);
 
 protected:
-  std::atomic<bool> inited_;
-  BlockingQueue<std::string> msgQueue_;
+    unsigned int getCrcCheck(char* buf, unsigned int len);
+    void printMessage(const std::string& msg, const LogLevel& loglevel = LOG_LEVEL_INFO);
+    void printMessage(const void* data, int len, const LogLevel& loglevel = LOG_LEVEL_INFO);
+
+protected:
+    std::atomic<bool> inited_;
+    BlockingQueue<std::string> msgQueue_;
 };
 
 } // namespace toyBasket

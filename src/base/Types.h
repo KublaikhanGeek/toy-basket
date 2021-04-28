@@ -19,19 +19,20 @@
 #include <thread>
 
 /******************************** Defines ***********************************/
-#define LOG_INFO LOG(INFO) << "[" << std::this_thread::get_id() << "] "
+#define LOG_INFO    LOG(INFO) << "[" << std::this_thread::get_id() << "] "
 #define LOG_WARNING LOG(WARNING) << "[" << std::this_thread::get_id() << "] "
-#define LOG_ERROR LOG(ERROR) << "[" << std::this_thread::get_id() << "] "
-#define LOG_FATAL LOG(FATAL) << "[" << std::this_thread::get_id() << "] "
+#define LOG_ERROR   LOG(ERROR) << "[" << std::this_thread::get_id() << "] "
+#define LOG_FATAL   LOG(FATAL) << "[" << std::this_thread::get_id() << "] "
 
 #define MSG_BUF_SIZE 4096
 
 /******************************** Typdef ************************************/
-enum LogLevel {
-  LOG_LEVEL_INFO,
-  LOG_LEVEL_WARNING,
-  LOG_LEVEL_ERROR,
-  LOG_LEVEL_FATAL
+enum LogLevel
+{
+    LOG_LEVEL_INFO,
+    LOG_LEVEL_WARNING,
+    LOG_LEVEL_ERROR,
+    LOG_LEVEL_FATAL
 };
 
 #endif /* _TYPES_H */

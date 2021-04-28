@@ -16,37 +16,53 @@
 
 using namespace toyBasket;
 
-TaskCommonLoopThread::TaskCommonLoopThread(const ThreadLoopCallback &cb)
-    : exiting_(false), started_(false), callback_(cb) {}
-
-TaskCommonLoopThread::~TaskCommonLoopThread() { this->stopLoop(); }
-
-void TaskCommonLoopThread::startLoop() {
-  if (started_.load()) {
-    return;
-  }
-
-  thread_ = std::thread(std::bind(&TaskCommonLoopThread::threadFunc, this));
+TaskCommonLoopThread::TaskCommonLoopThread(const ThreadLoopCallback& cb)
+    : exiting_(false)
+    , started_(false)
+    , callback_(cb)
+{
 }
 
-void TaskCommonLoopThread::stopLoop() {
-  exiting_ = true;
-  started_.exchange(false);
-  if (thread_.joinable()) {
-    thread_.join();
-  }
+TaskCommonLoopThread::~TaskCommonLoopThread()
+{
+    this->stopLoop();
 }
 
-void TaskCommonLoopThread::threadFunc() {
-  started_.exchange(true);
-
-  while (!exiting_) {
-    if (callback_) {
-      callback_();
-    } else {
-      break;
+void TaskCommonLoopThread::startLoop()
+{
+    if (started_.load())
+    {
+        return;
     }
-  }
 
-  started_.exchange(false);
+    thread_ = std::thread(std::bind(&TaskCommonLoopThread::threadFunc, this));
+}
+
+void TaskCommonLoopThread::stopLoop()
+{
+    exiting_ = true;
+    started_.exchange(false);
+    if (thread_.joinable())
+    {
+        thread_.join();
+    }
+}
+
+void TaskCommonLoopThread::threadFunc()
+{
+    started_.exchange(true);
+
+    while (!exiting_)
+    {
+        if (callback_)
+        {
+            callback_();
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    started_.exchange(false);
 }

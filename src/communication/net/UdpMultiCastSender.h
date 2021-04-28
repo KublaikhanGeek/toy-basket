@@ -18,26 +18,30 @@
 #include "Socket.h"
 #include "noncopyable.h"
 
+namespace toyBasket
+{
 
-namespace toyBasket {
-
-class UdpMultiCastSender : noncopyable {
+class UdpMultiCastSender : noncopyable
+{
 public:
-  UdpMultiCastSender(const InetAddress &GroupAddr, const std::string &nameArg);
-  ~UdpMultiCastSender() = default;
+    UdpMultiCastSender(const InetAddress& GroupAddr, const std::string& nameArg);
+    ~UdpMultiCastSender() = default;
 
-  const std::string &name() const { return name_; }
+    const std::string& name() const
+    {
+        return name_;
+    }
 
-  void setMulticastIF(const std::string &address);
-  void setLoopBack(bool on);
-  void setTTL(const unsigned char &ttl);
+    void setMulticastIF(const std::string& address);
+    void setLoopBack(bool on);
+    void setTTL(const unsigned char& ttl);
 
-  void send(const void *message, int len);
+    void send(const void* message, int len);
 
 private:
-  Socket socket_;
-  InetAddress groupAddr_;
-  const std::string name_;
+    Socket socket_;
+    InetAddress groupAddr_;
+    const std::string name_;
 };
 
 } // namespace toyBasket

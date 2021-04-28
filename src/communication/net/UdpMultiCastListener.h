@@ -20,43 +20,50 @@
 #include "InetAddress.h"
 #include "Socket.h"
 
+namespace toyBasket
+{
 
-namespace toyBasket {
-
-class UdpMultiCastListener : noncopyable {
+class UdpMultiCastListener : noncopyable
+{
 public:
-  // UdpMultiCastListener(EventLoop* loop);
-  // UdpMultiCastListener(EventLoop* loop, const string& host, unsigned short
-  // port);
-  UdpMultiCastListener(EventLoop *loop, const InetAddress &groupAddr,
-                       const InetAddress &localAddr,
-                       const std::string &nameArg);
+    // UdpMultiCastListener(EventLoop* loop);
+    // UdpMultiCastListener(EventLoop* loop, const string& host, unsigned short
+    // port);
+    UdpMultiCastListener(EventLoop* loop, const InetAddress& groupAddr, const InetAddress& localAddr,
+                         const std::string& nameArg);
 
-  ~UdpMultiCastListener(); // force out-line dtor, for std::unique_ptr members.
+    ~UdpMultiCastListener(); // force out-line dtor, for std::unique_ptr members.
 
-  EventLoop *getLoop() const { return loop_; }
+    EventLoop* getLoop() const
+    {
+        return loop_;
+    }
 
-  const std::string &name() const { return name_; }
+    const std::string& name() const
+    {
+        return name_;
+    }
 
-  /// Set message callback.
-  /// Not thread safe.
-  void setMessageCallback(DgramEventCallback cb) {
-    messageCallback_ = std::move(cb);
-  }
+    /// Set message callback.
+    /// Not thread safe.
+    void setMessageCallback(DgramEventCallback cb)
+    {
+        messageCallback_ = std::move(cb);
+    }
 
 private:
-  void handleRead();
-  void stop();
+    void handleRead();
+    void stop();
 
 private:
-  EventLoop *loop_;
-  const std::string name_;
-  const InetAddress groupAddr_;
-  const InetAddress localAddr_;
-  Socket socket_;
-  Channel channel_;
-  DgramEventCallback messageCallback_;
-  Buffer inputBuffer_;
+    EventLoop* loop_;
+    const std::string name_;
+    const InetAddress groupAddr_;
+    const InetAddress localAddr_;
+    Socket socket_;
+    Channel channel_;
+    DgramEventCallback messageCallback_;
+    Buffer inputBuffer_;
 };
 
 } // namespace toyBasket

@@ -20,44 +20,52 @@
 #include "InetAddress.h"
 #include "Socket.h"
 
-namespace toyBasket {
+namespace toyBasket
+{
 
-class DgramClient : noncopyable {
+class DgramClient : noncopyable
+{
 public:
-  // DgramClient(EventLoop* loop);
-  // DgramClient(EventLoop* loop, const string& host, unsigned short port);
-  DgramClient(EventLoop *loop, const InetAddress &serverAddr,
-              const std::string &nameArg,
-              const InetAddress &clientAddr = InetAddress(""));
+    // DgramClient(EventLoop* loop);
+    // DgramClient(EventLoop* loop, const string& host, unsigned short port);
+    DgramClient(EventLoop* loop, const InetAddress& serverAddr, const std::string& nameArg,
+                const InetAddress& clientAddr = InetAddress(""));
 
-  ~DgramClient(); // force out-line dtor, for std::unique_ptr members.
+    ~DgramClient(); // force out-line dtor, for std::unique_ptr members.
 
-  EventLoop *getLoop() const { return loop_; }
+    EventLoop* getLoop() const
+    {
+        return loop_;
+    }
 
-  const std::string &name() const { return name_; }
+    const std::string& name() const
+    {
+        return name_;
+    }
 
-  /// Set message callback.
-  /// Not thread safe.
-  void setMessageCallback(DgramEventCallback cb) {
-    messageCallback_ = std::move(cb);
-  }
+    /// Set message callback.
+    /// Not thread safe.
+    void setMessageCallback(DgramEventCallback cb)
+    {
+        messageCallback_ = std::move(cb);
+    }
 
-  void send(const void *message, int len);
-  void connect(const InetAddress &serverAddr);
+    void send(const void* message, int len);
+    void connect(const InetAddress& serverAddr);
 
 private:
-  void handleRead();
-  void stop();
+    void handleRead();
+    void stop();
 
 private:
-  EventLoop *loop_;
-  const std::string name_;
-  const InetAddress serverAddr_;
-  bool connected_;
-  Socket socket_;
-  Channel channel_;
-  DgramEventCallback messageCallback_;
-  Buffer inputBuffer_;
+    EventLoop* loop_;
+    const std::string name_;
+    const InetAddress serverAddr_;
+    bool connected_;
+    Socket socket_;
+    Channel channel_;
+    DgramEventCallback messageCallback_;
+    Buffer inputBuffer_;
 };
 
 } // namespace toyBasket

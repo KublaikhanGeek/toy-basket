@@ -23,26 +23,28 @@
 
 #include "noncopyable.h"
 
-namespace toyBasket {
+namespace toyBasket
+{
 
 class EventLoop;
 
-class TaskCommonLoopThread : noncopyable {
+class TaskCommonLoopThread : noncopyable
+{
 public:
-  typedef std::function<void()> ThreadLoopCallback;
+    typedef std::function<void()> ThreadLoopCallback;
 
-  TaskCommonLoopThread(const ThreadLoopCallback &cb = ThreadLoopCallback());
-  ~TaskCommonLoopThread();
-  void startLoop();
-  void stopLoop();
+    TaskCommonLoopThread(const ThreadLoopCallback& cb = ThreadLoopCallback());
+    ~TaskCommonLoopThread();
+    void startLoop();
+    void stopLoop();
 
 private:
-  void threadFunc();
+    void threadFunc();
 
-  bool exiting_;
-  std::atomic<bool> started_;
-  std::thread thread_;
-  ThreadLoopCallback callback_;
+    bool exiting_;
+    std::atomic<bool> started_;
+    std::thread thread_;
+    ThreadLoopCallback callback_;
 };
 
 } // namespace toyBasket
